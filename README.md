@@ -5,7 +5,7 @@ On The Spot is a web application prototype for monitoring HVAC equipment and tur
 ## 🚀 Demo
 [Open the interactive sample demo](YOUR_REPLIT_PREVIEW_URL_HERE)
 
-> 💡 **Note:** The demo uses fictional facilities and sensor data. Select a unit to view its sample temperature history, calculated fault scores, and health score. Its calculations use the same scoring functions as the server. It does not read from or write to the customer database.
+> 💡 **Note:** The demo uses fictional facilities and sensor data. Select a unit in order to view its sample temperature history, calculated fault scores, and health score. Its calculations use the same scoring functions as the server. It does not read from or write to the customer database.
 > 
 > *The link above is the current Replit workspace preview. For a long-term GitHub link, replace it with the published application URL followed by `/demo`.*
 
