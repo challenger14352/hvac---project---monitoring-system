@@ -1,0 +1,117 @@
+﻿Portfolio | 20 Project Q & A
+October 31, 2026
+1. Which sensors are physically connected to the ESP32 right now, and what does each one measure?
+Right now, I have a DS18B20 waterproof temperature sensor and an SCT013 current clamp connected to my ESP32 setup. The temperature sensor measures actual temperature, and it's working. I can see live readings on my computer and website.
+The current clamp is designed to measure the electrical current flowing through a wire. It connects through an ADS1115 analog-to-digital converter, but I'm still working on getting accurate current readings.
+The temperature sensor uses GPIO4, and the ADS1115 communicates through GPIO21 and GPIO22.
+
+2. How do you measure airflow through the filter? Is it the pressure difference across the filter, or something else?
+I haven't added airflow measurement to the working prototype yet.
+My plan is to use a differential pressure sensor to compare the air pressure before and after the filter. As a filter gets dirty, the pressure drop across it can increase under comparable operating conditions. I want to use that information to help identify when a filter is becoming restricted.
+I identified the Sensirion SDP31 as a possible sensor for this, but I haven't installed or tested it yet. I would also need to account for blower speed and operating conditions when interpreting the measurements.
+
+3. What does the ESP32 code do today? Does it read all sensors, or one?
+Right now, the ESP32 successfully reads my DS18B20 temperature sensor and sends the measurements to my computer through USB.
+The website receives those measurements through the browser's USB connection and displays the temperature in real time. It also keeps a running graph of the readings.
+I've connected the ADS1115 for current monitoring, but the current sensor still isn't giving me usable measurements. Temperature is the only sensor I can currently demonstrate working.
+
+4. Has any real ESP32 reading reached your website? If so, when, and do you have a screenshot or recording?
+Yes. On October 31, 2026, I recorded real temperature readings from the ESP32 on my website.
+One screenshot shows the temperature at 75.76°F (24.31°C). Another shows 143 validated readings with no rejected serial lines. The graph also shows the temperature increasing and then decreasing during testing.
+I have screenshots of the live dashboard and a demonstration video showing my project.
+
+5. Which parts of the website show real data and which show sample data?
+The Live Hardware section displays actual readings from my ESP32 through a local USB connection. The temperature value, incoming data frames, and live temperature graph are real measurements.
+Other parts of the website use sample data to demonstrate how the system could eventually work with multiple HVAC units. The example fleet, equipment health scores, and simulated diagnostic features aren't based on live data from installed HVAC systems.
+I made sure the live readings and sample data are labeled separately so people can tell the difference.
+
+6. When did you start the project?
+I first came up with the idea while working with an HVAC company during a the summer of 2025. I noticed how technicians used measurements to figure out what was wrong with equipment, and I started thinking about whether some of that information could be collected remotely.
+I worked on the software and website, then started assembling and testing the electronics. By October 2026, I had the ESP32 communicating with the computer and real temperature readings appearing on the website.
+
+7. What went wrong with the DuPont connectors on the current sensor, and what did you change? Did you move to screw terminals and ferrules?
+While testing the wiring, I found a connector that wasn't crimped tightly enough to make a reliable connection with the wire.
+The multimeter initially showed 0.00 volts. I checked the connector more closely and realized the metal terminal wasn't gripping the wire properly. After fixing the crimp, I measured about 3.08 volts.
+I use a screw-terminal breakout board for the ESP32, but I'm still using breadboard connections for some of the prototype circuitry. I haven't converted the entire system to permanent terminals and ferrules yet.
+This repair confirmed that I had restored voltage at the connection. It didn't mean the unfinished current-sensing circuit was fully working.
+
+8. Which cheap component gave you the most trouble, and how did you find the problem?
+The small wire connector gave me more trouble than I expected.
+At first, I thought there might be a problem with the sensor or the code because the wiring wasn't behaving correctly. I used a multimeter to check the voltage and found that I wasn't getting power through the connection.
+When I looked at the connector, I saw that it hadn't been crimped correctly. After fixing it, the voltage reading went from zero to about 3.08 volts.
+It was frustrating that such a small part could stop the whole thing from working, but it taught me to check the physical connections before assuming something is wrong with the software.
+
+9. How did you choose the thresholds in your diagnostic checks (airflow restriction, short cycling, low charge)? Have you tested any of them?
+I haven't finished testing diagnostic thresholds yet.
+My idea is to compare measurements under similar operating conditions instead of depending on one number for every HVAC system.
+For example, I want to look at changes in pressure across the filter, how frequently the compressor starts and stops, and temperature differences while the unit is running. Those measurements could help identify problems, but I would need to establish normal ranges for the equipment before using them to make decisions.
+The website has examples of what these checks might look like, but I haven't validated them against actual HVAC failures.
+
+10. Have you done any desk test with a fan or filter? What changed in your readings?
+I tried using a household box fan as a test load for the current clamp, but I haven't gotten reliable current measurements from it yet.
+My successful bench testing has been with the temperature sensor. I can see temperature changes on the live graph as the sensor's temperature changes.
+In one test, the graph started near room temperature, increased to a little over 30°C, and then began dropping again. That helped confirm that the system was receiving changing measurements rather than displaying a fixed value.
+I haven't completed a pressure-drop test using a fan and filter.
+
+11. What did you write or edit in the code yourself, and what did your dad write or explain
+I worked on deciding what I wanted the software to do, how the information should appear on the website, and how the hardware should connect to the software.
+Me and my Dad used Replit and its AI tools to help build the website and software. I also worked through the hardware connections and troubleshooting to get the actual sensor readings to appear.
+My dad helped me think through the HVAC side of the project, especially what measurements would be useful when diagnosing problems with an air conditioning system.
+I generated the prompts for AI to make the code (didn’t actually write any myself though)
+
+12. Did ChatGPT or Replit's assistant generate any code or wiring in your project? What did you check or change?
+Yes. I used Replit's AI tools to help generate code for the website and software, and I used ChatGPT to help choose components, understand wiring diagrams, and troubleshoot the ESP32 and sensors.
+I didn't just assume everything the tools suggested was correct. I had to connect the actual components and check whether the software was receiving real measurements.
+One problem turned out to be an incorrectly crimped connector, which I found by using a multimeter. I also had to work through getting the sensor readings from the ESP32 into the website.
+The current sensor is an example of something that still needs work even though I have the hardware and software started.
+
+13. Did you rely on example code, tutorials or libraries for the ESP32 and sensors? Which ones?
+I used existing development tools and sensor libraries as part of the project, along with help from ChatGPT and Replit.
+Some of the source code that was used includes the OneWire, DallasTemperature, Adafruit ADS1X15, and Adafruit BusIO libraries.
+The ESP32 firmware communicates with the DS18B20 temperature sensor, and the ADS1115 uses I²C communication with the ESP32.
+I used GitHub to store code and Replit as my main environment for developing the website.
+
+14. What did the S.P.A.M. Robotics mentors teach you, and who were they?
+Working with S.P.A.M. Robotics Team 180 gave me a chance to work around more experienced students and mentors. They taught me how to solder pin headers into the holes of small electronics boards and also how to connect wires into those pins through dupont connectors. 
+I had previously been a co-captain of Team Talos, where I helped organize the team and understand the competition rules. At S.P.A.M., I was able to see how a more experienced robotics team approached designing and building things.
+That experience helped me become more comfortable with working through technical problems and learning from people who knew more than I did
+
+15. What has the lead technician done so far, and what testing is planned?
+Clay, the lead HVAC technician, has been one of the people I could learn from while working around air conditioning equipment. While he hasn’t really played a true role in the project, I plan to test the finalized system with him after I'm finished. 
+Seeing how technicians diagnose equipment helped me understand why temperature, electrical current, and airflow measurements could be useful.
+My next step is to finish the current-sensing circuit and then work toward testing the sensors on actual HVAC equipment with appropriate supervision.
+Eventually, I want to compare measurements against what technicians find when inspecting equipment so I can see whether my diagnostic ideas are useful.
+
+16. How does your current sensor attach: around a wire without touching it, or in the circuit? Has any part been connected to a real unit, and who supervised?
+The SCT013 is a split-core current transformer. It clips around a single insulated electrical conductor and measures current without making a direct electrical connection to that conductor.
+The clamp sends a signal to the circuit connected to the ADS1115, which is supposed to convert that signal into a digital measurement for the ESP32.
+So far, the testing I've documented has been on the bench. I haven't confirmed working current measurements or documented a successful test on an installed HVAC unit.
+Before testing on real equipment, I would need proper supervision and a safe testing setup.
+
+17. Does On The Spot Air know and approve of the project name?
+Yes. My dad, Josh Zettler, is authorized to represent On The Spot Heating & Air, and he supports my use of the company name for this project.
+We prepared a written authorization allowing me to use the company's name and branding in the prototype software, website, screenshots, videos, GitHub documentation, and college portfolio.
+The project is still my student prototype. Using the company's name doesn't mean the system is a finished commercial product or that it has been approved for customer installations.
+
+18. What is one moment in this project when you felt stuck, and what did you do next?
+One of the most frustrating parts was when I couldn't get the wiring to work correctly.
+I had connected the components, but I wasn't seeing the results I expected. I started checking the connections with a multimeter and found that one of the wires was reading zero volts.
+When I looked more closely, I found that the metal connector hadn't been crimped correctly. I fixed the connection and tested it again. This time the multimeter showed about 3.08 volts.
+That was a good moment because I finally knew what had been wrong. It also showed me that sometimes the problem isn't the complicated part of the project. Sometimes it's just a bad connection.
+
+19. Is there a project you have made that holds personal meaning and is not already in your essays?
+The HVAC monitoring project means a lot to me because it came from something I noticed while working instead of an assignment I was given.
+I liked the idea that something I built could eventually help technicians identify problems before customers even notice them.
+Outside of this project, robotics has been an important part of my experience, but I've already talked about that in my application.
+
+20. Who was instrumental in helping with the project?
+My dad, Josh, has seen me work on the electronics and software, including the wiring problems and the successful temperature measurements.
+
+Clay, the lead HVAC technician, is another possible person who could talk about how I became interested in HVAC diagnostics through my work experience.
+Someone who has directly watched me build or troubleshoot the system would be able to explain what I actually did, rather than just describing the idea.
+
+
+
+
+
+Noah | Portfolio
