@@ -52,9 +52,8 @@ The bench readouts, saved snapshots, and chart tooltips show both °F and °C; F
 
 The live history plots actual received temperatures with °C/°F scales and valid nominal current estimates separately in A, using browser arrival times. It displays the latest 300 frames and up to five most recently seen probe addresses. Missing readings remain gaps, disabled current is not treated as zero, and stopped or stale history is explicitly labeled. This rolling chart buffer is not durable storage: export CSV or opt into account saving for retention.
 
-- Firmware: [ESP32 bench sketch](http://hardware/esp32_bench/esp32_bench.ino)  
-- Exact reference wiring, Windows setup and safety checks: [Bench setup guide](http://hardware/BENCH_SETUP.md)  
-- Hardware/library sources: [Sources and disclosure](http://hardware/SOURCES.md)
+- Firmware: [ESP32 bench sketch](https://github.com/challenger14352/hvac---project---monitoring-system/tree/firmware)
+- Hardware/library sources: [Sources and disclosure](https://github.com/challenger14352/hvac---project---monitoring-system/tree/hardware))
 
 The sketch starts with current sampling disabled pending circuit checks. DS18B20 temperatures work independently; current is a nominal RMS estimate for the photographed SCT013 100 A / 1 V and must not be treated as calibrated. Do not open/cut a fan cord or expose mains: use only an appropriately rated commercial enclosed clamp-meter line splitter per its instructions. A box fan and filter do not establish HVAC fault detection, airflow, or pressure drop.
 
@@ -262,9 +261,9 @@ The schema is defined in `shared/schema.ts`:
 
 ## Physical current-sensor bench test
 
-Open **`/connect`** on the app for the ESP32 connection page. It includes downloadable Arduino firmware, wiring instructions, and a local USB serial reader for desktop Chrome or Edge. Close Arduino Serial Monitor before connecting the browser to the same port. USB measurements are uncalibrated, local by default. Start and stop a recording to export CSV, or explicitly save the stopped session to a selected unit in your signed-in account. Bench logs remain separate from the live ingestion API and do not establish HVAC health. See [saving physical ESP32 recordings](http://docs/bench-recordings.md) for the workflow.
+Open **`/connect`** on the app for the ESP32 connection page. It includes downloadable Arduino firmware, wiring instructions, and a local USB serial reader for desktop Chrome or Edge. Close Arduino Serial Monitor before connecting the browser to the same port. USB measurements are uncalibrated, local by default. Start and stop a recording to export CSV, or explicitly save the stopped session to a selected unit in your signed-in account. Bench logs remain separate from the live ingestion API and do not establish HVAC health.
 
-The [USB firmware and wiring guide](http://firmware/README.md) covers the SCT013 **100 A / 1 V** voltage-output CT, ADS1115, and ESP32. The sketch reports DC-offset-corrected RMS current through Serial Monitor using a documented bias and input-divider circuit. Uploads are disabled by default. After reference-meter validation, the guide explains how to enable certificate-verified HTTPS uploads using a revocable token for one real account unit, without a browser login. The device path accepts only the current channel actually measured; it never creates missing sensor values or an overall health score.
+The [USB firmware and wiring guide](https://github.com/challenger14352/hvac---project---monitoring-system/tree/README.md) covers the SCT013 **100 A / 1 V** voltage-output CT, ADS1115, and ESP32. The sketch reports DC-offset-corrected RMS current through Serial Monitor using a documented bias and input-divider circuit. Uploads are disabled by default. After reference-meter validation, the guide explains how to enable certificate-verified HTTPS uploads using a revocable token for one real account unit, without a browser login. The device path accepts only the current channel actually measured; it never creates missing sensor values or an overall health score.
 
 The unit page provides one-time token creation/replacement and revocation. Only token hashes are stored on the server; keep the filled-in `DeviceConfig.h` private and out of Git. Archival, ownership changes, or account removal invalidate device access without deleting measurement history. On a database missing the existing ownership schema, device endpoints explicitly return setup-required errors until the supported schema upgrade has been applied and the app restarted.
 
@@ -276,7 +275,7 @@ Signed-in accounts can use `/settings` to save their organization name, default 
 
 The customer screen supports equipment creation and archiving a customer without deleting equipment or measurement history.
 
-Run `npm run check:database` for a read-only schema preflight and `npm run test:database-readiness` for an offline, non-mutating regression check against the Drizzle schema, auth, and workspace models. When changing models, update `server/database-readiness-contract.ts`; any deliberately optional column must have an explicit reason there. Nullable/defaulted fields are not automatically optional because ORM queries still select them. The regression suite also checks the ownership-only development guard and the public health endpoint's limited output. Run `npm run test:workspace` for workspace API, persistence, USB protocol, and telemetry-quality checks. See [the release-readiness review](http://docs/release-readiness.md) for the remaining authentication and production-schema gates; a successful build alone is not verification of every sign-in provider or physical sensor.
+Run `npm run check:database` for a read-only schema preflight and `npm run test:database-readiness` for an offline, non-mutating regression check against the Drizzle schema, auth, and workspace models. When changing models, update `server/database-readiness-contract.ts`; any deliberately optional column must have an explicit reason there. Nullable/defaulted fields are not automatically optional because ORM queries still select them. The regression suite also checks the ownership-only development guard and the public health endpoint's limited output. Run `npm run test:workspace` for workspace API, persistence, USB protocol, and telemetry-quality checks. 
 
 ## Development and validation
 
