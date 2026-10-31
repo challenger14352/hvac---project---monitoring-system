@@ -6,7 +6,7 @@ On The Spot is a web application for organizing HVAC customers and equipment, re
 
 ## Live demo
 
-[Open the interactive sample demo](https://drive.google.com/file/d/1ap8JPwjyAaUxmSzGAD_wf_O5X43TwB4B/view?usp=sharing))
+[Open the interactive sample demo](https://drive.google.com/file/d/1ap8JPwjyAaUxmSzGAD_wf_O5X43TwB4B/view?usp=sharing)
 
 The public demo uses fictional facilities and sample HVAC sensor data. Browse the fleet, search customers, open customer details, and explore each unit's **MVP Core**, **Ultimate Mode**, **Unit Health**, and **Live hardware** views. You can add a sample customer to preview the workflow; demo changes are stored only in the current browser session and are never written to the customer database.
 
